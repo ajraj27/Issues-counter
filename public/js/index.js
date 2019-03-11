@@ -1,4 +1,3 @@
-//import axios from '../node_modules/axios/index.js';
 
 const submitBtn=document.querySelector('.submitBtn');
 const dataValue1=document.querySelector('.data-1');
@@ -6,16 +5,19 @@ const dataValue2=document.querySelector('.data-2');
 const dataValue3=document.querySelector('.data-3');
 const dataValue4=document.querySelector('.data-4');
 const backdrop=document.querySelector('.Backdrop');
+const inp=document.querySelector('input[type=text]');
 
 submitBtn.addEventListener('click',async (e) => {
     e.preventDefault();
-    const url=document.querySelector('input[type=text]').value;
+    let url=inp.value;
+    url=url.trim();
+    const urlArr=url.split('/');
 
-    if(url){
-        console.log(backdrop.style);
+    inp.value="";
+
+    if(urlArr.length===5 && urlArr[0]==="https:" && urlArr[1]==="" && urlArr[3] && urlArr[4]){
         backdrop.style.display="block";
-        console.log("hey");
-        
+
         const res=await axios({
             method:'post',
             url:'/getIssuesInfo',

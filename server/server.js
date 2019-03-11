@@ -5,20 +5,19 @@ const path=require('path');
 
 
 const app=express();
+
 const publicPath=path.join(__dirname,'/public');
 
-app.use(express.static(path.join(__dirname,'/public')));
+app.use(express.static(path.join(__dirname,'../public')));
 app.use(bodyParser.json());
 
 app.post('/getIssuesInfo',async(req,res) => {
-  console.log("Entered");
   const curTime=new Date().getTime();
   const oneDayTime=1*24*60*60*1000;
   const last1DayTimeISO=new Date(curTime-oneDayTime).toISOString();
   const last7DaysTimeISO=new Date(curTime-7*oneDayTime).toISOString();
 
   const url=req.body.url;
-  console.log(url);
   const arrUrl=url.split("/");
 
   const apiUrl=`https://api.github.com/repos/${arrUrl[3]}/${arrUrl[4]}`;
@@ -57,11 +56,10 @@ app.post('/getIssuesInfo',async(req,res) => {
     "LastSevenDaysButMoreThanOneDayCount":last7DaysCount-last1DayCount,
     "BeforeSevenDaysIssuesCount":openIssuesCount-last7DaysCount
   };
-
-  console.log(data);
+  
   res.send(data);
 });
 
-app.listen(3000,() => {
+app.listen(process.env.PORT|| 3000,() => {
   console.log("Server started!");
 });
