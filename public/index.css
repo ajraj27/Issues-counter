@@ -1,0 +1,17 @@
+*{
+    box-sizing:border-box;
+}
+
+body{
+    height:100%;
+    width:100%;
+    background: #333;
+    color: #fff;
+    padding-top:70px;
+}
+
+.navbar{
+    height: 50px;
+    border-bottom:rgba(54, 235, 9, 0.2) 10px solid;
+    opacity:0.8;
+}
